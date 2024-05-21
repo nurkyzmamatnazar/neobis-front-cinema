@@ -1,0 +1,26 @@
+.sidebar {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  background: #464646;
+  &__list {
+    list-style: none;
+    padding: 0 2em;
+  }
+  &__item {
+    border: 2px solid #262323;
+    border-radius: 0.5em;
+    padding: 1em 1em;
+    margin: 1em;
+     &:hover {
+      background: #404040;
+    }
+  }
+  &__link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.6em;
+    &:hover {
+      color: #dad8d8;
+    }
+  }
+}

@@ -14,13 +14,33 @@
 <body>
   <header class="header">
     <a class="header__logo" href="#">Movie App</a>
-    <input class="header__search" type="text" placeholder="search">
+    <input class="header__search" id="search" type="text" placeholder="search">
   </header>
 
-  <div class="container">
-    
+  <div class="main-block">
+    <div class="sidebar">
+      <ul class="sidebar__list">
+        <li class="sidebar__item">
+          <a href="#premieres" id="premieres" class="sidebar__link">Премьеры текущего месяца</a>
+        </li>
+        <li class="sidebar__item">
+          <a href="#expected" id="expected" class="sidebar__link">Топ ожидаемых фильмов</a>
+        </li>
+        <li class="sidebar__item">
+          <a href="#best" id="best" class="sidebar__link">Топ лучших фильмов</a>
+        </li>
+        <li class="sidebar__item">
+          <a href="#reliz" id="reliz" class="sidebar__link">Цифровые релизы текущего месяца</a>
+        </li>   
+      </ul>
+    </div>
+    <div class="movies">
+    </div>
   </div>
  
+  <!-- <footer>
+    <a href=""></a>
+  </footer> -->
   <script src="index.js"></script>
 </body>
 </html>
