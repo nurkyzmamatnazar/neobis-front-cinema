@@ -1,24 +1,22 @@
 .movies {
-  background: #ffd80e;
-  grid-column-start: 2;
-  grid-column-end: 9;
-  &__inner {
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  &__top-title {
-    font-size: 2em;
-  }
-  }
+  padding: 0 2em;
+  padding-top: 8em;
 }
 
 .movie {
-  width: 240px;
-  margin: 10px;
+  width: 20%;
+  height: auto;
+  padding: 0 10px;
+  margin-bottom: 2em;
   position: relative;
   &__cover-inner {
     position: relative;
-    height: 360px;
+    // height: 360px;
+    height: auto;
   }
   &__cover {
     max-width: 100%;
@@ -42,9 +40,19 @@
   &__info {
     padding: 10px 0px;
   }
+  &__title-block {
+    display: flex;
+    justify-content: space-between;
+  }
   &__title {
     font-size: 16px;
     color: #ffffff;
+  }
+  &__saved {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: white;
   }
   &__category {
     font-size: 14px;

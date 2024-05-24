@@ -1,6 +1,15 @@
 const APIKEY = '7323c461-bca7-43e3-8e97-37fd05986f86';
 const baseUrl = `https://kinopoiskapiunofficial.tech`;
 
+const searchInput = document.getElementById('search');
+
+searchInput.addEventListener('change', e => {
+  e.preventDefault();
+  const query = e.target.value;
+  const urlSearch = `${baseUrl}/api/v2.1/films/search-by-keyword?keyword=${query}&page=1`;
+  get(urlSearch);
+});
+
 const urlPremieres = `${baseUrl}/api/v2.2/films/premieres?year=2024&month=MAY&`;
 const urlExpected = `${baseUrl}/api/v2.2/films/collections?type=CLOSES_RELEASES&page=1`;
 const urlBest = `${baseUrl}/api/v2.2/films/collections?type=TOP_POPULAR_MOVIES&page=1`;
@@ -11,20 +20,23 @@ const expected = document.getElementById('expected');
 const best = document.getElementById('best');
 const reliz = document.getElementById('reliz');
 
-
-premieres.addEventListener('click', () => {
+premieres.addEventListener('click', (event) => {
+  event.preventDefault();
   get(urlPremieres);
 });
 
-expected.addEventListener('click', () => {
+expected.addEventListener('click', (event) => {
+  event.preventDefault();
   get(urlExpected);
 });
 
-best.addEventListener('click', () => {
+best.addEventListener('click', (event) => {
+  event.preventDefault();
   get(urlBest);
 });
 
-reliz.addEventListener('click', () => {
+reliz.addEventListener('click', (event) => {
+  event.preventDefault();
   get(urlReliz);
 });
 
@@ -37,54 +49,74 @@ const get = async (url) => {
     },
 });
 
-  const moviesTop = await response.json();
-  // console.log(moviesTop);
-  showMovies(moviesTop);
+  const movies = await response.json();
+  showMovies(movies);
+  console.log(movies);
 };
 
-const showMovies = (data) => {
-  const movies = document.querySelector('.movies');
+// const getRateById = async (id) => {
+//   const response = await fetch(baseUrl + id, {
+//     method: 'GET',
+//     headers: {
+//       'X-API-KEY': '7323c461-bca7-43e3-8e97-37fd05986f86',
+//       'Content-Type': 'application/json',
+//     },
+//   });
+  
+//   const movieInfo = await response.json();
+//   const movieRate = movieInfo.ratingImdb;
+//   return movieRate;
+// };
 
-  for (let i = 0; i < 10; i++) {
-    const movieCard = document.createElement('div');
-    movieCard.classList.add('movie');
-    movieCard.innerHTML = `
-    <div class="movie__cover-inner">
-        <img
-          src="${data.items[i].posterUrlPreview}"
-          class="movie__cover"
-          alt="${data.items[i].nameRu}"
-        />
-        <div class="movie__cover--darkened"></div>
-      </div>
-      <div class="movie__info">
-        <div class="movie__title">${data.items[i].nameRu}</div>
-        <div class="movie__category">${data.items[i].genres.map(
-          (genre) => ` ${genre.genre}`
-        )}</div>
-        ${
-          data.items[i].rating &&
-          `
-        <div class="movie__average movie__average--${getClassByRate(
-          data.items[i].rating
-        )}">${data.items[i].rating}</div>
-        `
-        }
-      </div>
-    `;
-    movies.appendChild(movieCard);
+const getClassByRate = (rating) => {
+   if (rating >= 7) {
+    return "green";
+  } else if (rating > 5) {
+    return "orange";
+  } else {
+    return "red";
   }
 };
 
-// const getClassByRate = () => {
+const showMovies = async (data) => {
+  const moviesBlock = document.querySelector('.movies');
+  moviesBlock.innerHTML = '';
+  const movies = data.items || data.films || data.releases;
   
-// };
+  console.log(movies);
 
-// const searchInput = document.getElementById('search');
+  movies.forEach(movie => {
+    const movieCard = document.createElement('div');
+    movieCard.classList.add('movie');
+    movieCard.innerHTML = `
+      <div class="movie__cover-inner">
+        <img
+          src="${movie.posterUrlPreview}"
+          class="movie__cover"
+          alt="${movie.nameRu}"
+        />
+        <div class="movie__cover_darkened"></div>      
+      </div>
 
-// searchInput.addEventListener('keydown', e => {
-//   e.preventDefault();
-//   const query = e.target.value;
-// });
+      <div class="movie__info">
+      <div class="movie__title-block">
+        <div class="movie__title">${movie.nameRu}</div>
+        <button class="movie__saved">
+          <i class="fa-solid fa-heart fa-xl"></i>
+        </button>
+      </div>
+        <div class="movie__category">
+        ${movie.genres.map((genre) => `${genre.genre}`)}
+        </div>
 
+        ${movie.rating ? `
+        <div class="movie__average movie__average_${getClassByRate(movie.rating)}">
+        ${movie.rating}
+        </div>` : ''
+        }
+      </div>
+    `;
+    moviesBlock.appendChild(movieCard);
+  });
+};
 

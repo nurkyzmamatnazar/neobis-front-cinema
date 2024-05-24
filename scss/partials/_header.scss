@@ -1,9 +1,12 @@
 .header {
-  grid-column: span 8;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // align-items: flex-start;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  background:  #1e1c1c;
+  margin-bottom: 1em;
   padding: 1em 3em;
   &__logo {
     color: #fff;
