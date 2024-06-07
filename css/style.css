@@ -138,11 +138,17 @@ body {
   font-size: 16px;
   color: #ffffff;
 }
-.movie__saved {
+.movie__save {
   border: none;
   background: transparent;
   padding: 0;
   color: white;
+}
+.movie__fav {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: red;
 }
 .movie__category {
   font-size: 14px;
